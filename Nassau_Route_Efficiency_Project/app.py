@@ -4,6 +4,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import os
 
 # ─── Page Config ────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -80,7 +81,7 @@ FACTORY_COLORS = {
 # ─── Load & Prepare Data ─────────────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    df = pd.read_csv('Nassau Candy Distributor.csv')
+    df = pd.read_csv(os.path.join(os.path.dirname(__file__), 'Nassau Candy Distributor.csv'))
     df['Order Date'] = pd.to_datetime(df['Order Date'], dayfirst=True)
     df['Ship Date']  = pd.to_datetime(df['Ship Date'],  dayfirst=True)
     df['Lead Time']  = (df['Ship Date'] - df['Order Date']).dt.days
